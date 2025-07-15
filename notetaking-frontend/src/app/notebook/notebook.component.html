@@ -1,0 +1,24 @@
+<mat-card>
+  <mat-form-field>
+    <input matInput [(ngModel)]="newNotebook.title" placeholder="Notebook Title">
+  </mat-form-field>
+  <button mat-raised-button color="primary" (click)="createNotebook()">Add Notebook</button>
+</mat-card>
+<mat-list>
+  <mat-list-item *ngFor="let notebook of notebooks">
+    <span>{{ notebook.title }}</span>
+    <button mat-icon-button (click)="editNotebook(notebook)">
+      <mat-icon>edit</mat-icon>
+    </button>
+    <button mat-icon-button (click)="deleteNotebook(notebook.id)">
+      <mat-icon>delete</mat-icon>
+    </button>
+  </mat-list-item>
+</mat-list>
+<mat-card *ngIf="editingNotebook">
+  <mat-form-field>
+    <input matInput [(ngModel)]="editingNotebook.title" placeholder="Update Notebook Title">
+  </mat-form-field>
+  <button mat-raised-button color="primary" (click)="updateNotebook()">Save</button>
+  <button mat-raised-button color="warn" (click)="cancelEdit()">Cancel</button>
+</mat-card>

@@ -1,0 +1,11 @@
+<mat-card>
+  <mat-form-field>
+    <mat-label>Question Type</mat-label>
+    <mat-select [(ngModel)]="questionType">
+      <mat-option value="one-word">One Word</mat-option>
+      <mat-option value="multiple-choice">Multiple Choice</mat-option>
+    </mat-select>
+  </mat-form-field>
+  <button mat-raised-button color="primary" (click)="generateQuestions()">Generate Questions</button>
+</mat-card>
+<div *ngIf="questions">{{ questions }}</div>

@@ -1,0 +1,15 @@
+<mat-toolbar color="primary">
+  <span>NoteTaking App</span>
+</mat-toolbar>
+<mat-sidenav-container>
+  <mat-sidenav mode="side" opened>
+    <app-notebook></app-notebook>
+  </mat-sidenav>
+  <mat-sidenav-content>
+    <app-note></app-note>
+  </mat-sidenav-content>
+</mat-sidenav-container>
+<div *ngIf="!isAuthenticated" style="text-align: center; padding: 20px;">
+  <h1>Welcome to NoteTaking App</h1>
+  <button mat-raised-button color="primary" (click)="login()">Login with Google</button>
+</div>

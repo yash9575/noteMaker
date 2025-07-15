@@ -1,0 +1,34 @@
+<mat-card>
+  <mat-form-field>
+    <input matInput [(ngModel)]="newNote.title" placeholder="Note Title">
+  </mat-form-field>
+  <quill-editor [(ngModel)]="newNote.content" placeholder="Enter your note"></quill-editor>
+  <mat-form-field>
+    <input matInput [(ngModel)]="newNote.tags" placeholder="Tags (comma-separated)">
+  </mat-form-field>
+  <button mat-raised-button color="primary" (click)="createNote()">Add Note</button>
+</mat-card>
+<mat-list>
+  <mat-list-item *ngFor="let note of notes">
+    <h3>{{ note.title }}</h3>
+    <div [innerHTML]="note.content"></div>
+    <p>Tags: {{ note.tags.join(', ') }}</p>
+    <button mat-icon-button (click)="editNote(note)">
+      <mat-icon>edit</mat-icon>
+    </button>
+    <button mat-icon-button (click)="deleteNote(note.id)">
+      <mat-icon>delete</mat-icon>
+    </button>
+  </mat-list-item>
+</mat-list>
+<mat-card *ngIf="editingNote">
+  <mat-form-field>
+    <input matInput [(ngModel)]="editingNote.title" placeholder="Update Note Title">
+  </mat-form-field>
+  <quill-editor [(ngModel)]="editingNote.content"></quill-editor>
+  <mat-form-field>
+    <input matInput [(ngModel)]="editingNote.tags" placeholder="Tags (comma-separated)">
+  </mat-form-field>
+  <button mat-raised-button color="primary" (click)="updateNote()">Save</button>
+  <button mat-raised-button color="warn" (click)="cancelEdit()">Cancel</button>
+</mat-card>
