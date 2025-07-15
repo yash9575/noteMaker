@@ -7,7 +7,7 @@ import { HttpClient } from '@angular/common/http';
 })
 export class NoteComponent implements OnInit {
   notes: any[] = [];
-  newNote: any = { title: '', content: '', tags: '', notebookId: 'test-notebook', userId: 'test-user' };
+  newNote: any = { title: '', content: '', tags: '', notebookId: 'test-notebook' };
   editingNote: any = null;
 
   constructor(private http: HttpClient) {}
@@ -17,16 +17,16 @@ export class NoteComponent implements OnInit {
   }
 
   loadNotes() {
-    this.http.get('http://localhost:8080/api/notes?notebookId=test-notebook')
+    this.http.get('http://localhost:8080/api/notes?notebookId=test-notebook', { withCredentials: true })
       .subscribe((data: any) => this.notes = data);
   }
 
   createNote() {
     const note = { ...this.newNote, tags: this.newNote.tags.split(',').map((tag: string) => tag.trim()) };
-    this.http.post('http://localhost:8080/api/notes', note)
+    this.http.post('http://localhost:8080/api/notes', note, { withCredentials: true })
       .subscribe((data: any) => {
         this.notes.push(data);
-        this.newNote = { title: '', content: '', tags: '', notebookId: 'test-notebook', userId: 'test-user' };
+        this.newNote = { title: '', content: '', tags: '', notebookId: 'test-notebook' };
       });
   }
 
@@ -36,7 +36,7 @@ export class NoteComponent implements OnInit {
 
   updateNote() {
     const note = { ...this.editingNote, tags: this.editingNote.tags.split(',').map((tag: string) => tag.trim()) };
-    this.http.put(`http://localhost:8080/api/notes/${this.editingNote.id}`, note)
+    this.http.put(`http://localhost:8080/api/notes/${this.editingNote.id}`, note, { withCredentials: true })
   .subscribe(() => {
   const index = this.notes.findIndex(n => n.id === this.editingNote.id);
   this.notes[index] = note;
@@ -49,7 +49,7 @@ cancelEdit() {
 }
 
 deleteNote(id: string) {
-  this.http.delete(`http://localhost:8080/api/notes/${id}`)
+  this.http.delete(`http://localhost:8080/api/notes/${id}`, { withCredentials: true })
     .subscribe(() => {
       this.notes = this.notes.filter(n => n.id !== id);
     });
